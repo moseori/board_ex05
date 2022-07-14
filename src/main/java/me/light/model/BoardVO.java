@@ -21,5 +21,5 @@ public class BoardVO {
 	private LocalDateTime regDate;
 	private LocalDateTime updateDate;
 	private int viewCount;
-	
+
 }

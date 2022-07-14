@@ -18,8 +18,8 @@
 
 	<update id="update">
 		update board_tbl set
-		title = #{title}
-		content = #{content}
+		title = #{title},
+		content = #{content},
 		updateDate = now()
 		where bno = #{bno}
 	</update>

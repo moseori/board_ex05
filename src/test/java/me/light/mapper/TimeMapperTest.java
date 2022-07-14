@@ -7,11 +7,11 @@ import lombok.extern.log4j.Log4j;
 import me.light.AppTest;
 
 @Log4j
-public class TimeMapperTest extends AppTest{
+public class TimeMapperTest extends AppTest {
 
 	@Autowired
 	TimeMapper mapper;
-	
+
 	@Test
 	public void test() {
 		String time = mapper.getTime();
