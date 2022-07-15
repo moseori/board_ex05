@@ -30,17 +30,17 @@ public class BoardServiceImplbb implements BoardService {
 	}
 
 	@Override
-	public void insert(BoardVO vo) {
+	public void register(BoardVO vo) {
 		mapper.insert(vo);
 	}
 
 	@Override
-	public void update(BoardVO vo) {
+	public void modify(BoardVO vo) {
 		mapper.update(vo);
 	}
 
 	@Override
-	public void delete(Long bno) {
+	public void remove(Long bno) {
 		mapper.delete(bno);
 	}
 

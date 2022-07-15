@@ -9,9 +9,9 @@ public interface BoardService {
 
 	BoardVO read(Long bno);
 
-	void insert(BoardVO vo);
+	void register(BoardVO vo);
 
-	void update(BoardVO vo);
+	void modify(BoardVO vo);
 
-	void delete(Long bno);
+	void remove(Long bno);
 }

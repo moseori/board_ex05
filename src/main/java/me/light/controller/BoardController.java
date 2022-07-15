@@ -21,8 +21,16 @@ public class BoardController {
 	@GetMapping("/list")
 	public String getList(Model model) {
 		List<BoardVO> readAll =service.readAll();
+		model.addAttribute("list", readAll);
 		System.out.println(readAll);
 		return "board/list";
+	}
+	
+	@GetMapping("/get")
+	public String get(Long bno, Model model) {
+		System.out.println(bno);
+		model.addAttribute("board", service.read(bno));
+		return "board/get";
 	}
 
 }
