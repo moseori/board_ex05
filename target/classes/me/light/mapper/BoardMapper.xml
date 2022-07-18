@@ -12,6 +12,9 @@
 	</select>
 
 	<insert id="insert">
+		<selectKey keyProperty="bno" resultType="java.lang.Long" order="AFTER">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
 		insert into board_tbl(title,content,writer)
 		values(#{title},#{content},#{writer})
 	</insert>

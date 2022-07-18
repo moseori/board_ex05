@@ -7,7 +7,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import me.light.exception.NotFoundBoardException;
 import me.light.model.BoardVO;
@@ -37,6 +39,28 @@ public class BoardController {
 		return "board/get";
 	}
 	
+	@GetMapping("/register")
+	public String registerForm() {
+		return "board/register";
+	}
+
+	@PostMapping("/register")
+	public String register(BoardVO vo,RedirectAttributes rttr) {
+		service.register(vo);
+		System.out.println(vo);
+		rttr.addFlashAttribute("regResult", vo.getBno());
+		return "redirect:list";
+	}
+	
+	@GetMapping("/modify")
+	public String modifyForm(Long bno, Model model) {
+		BoardVO read = service.read(bno);
+		if(read==null) throw new NotFoundBoardException();
+		model.addAttribute("board", read);
+		return "board/modify";
+	}
+	
+	//예외처리
 	@ExceptionHandler(NotFoundBoardException.class)
 	public String notFoundBoard() {
 		System.out.println("예외발생");
