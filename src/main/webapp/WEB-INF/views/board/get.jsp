@@ -1,8 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ include file="../layout/header.jsp"%>
-<%-- 
+
 <input type="hidden" name="bno" value="${board.bno}" id="bno"> 
+<%-- 
 <input type="hidden" name="title" value="${board.title}"> 
 <input type="hidden" name="content" value="${board.content}"> 
 <input type="hidden" name="regDate" value="${board.regDate}"> 
@@ -24,8 +25,8 @@
 			<div class="card-body">${board.content}</div>
 			<div class="card-footer d-flex justify-content-between">
 				<div>
-					<button class="btn btn-warning">수정</button>
-					<button class="btn btn-danger">삭제</button>
+					<button class="btn btn-warning modify">수정</button>
+					<button class="btn btn-danger remove">삭제</button>
 					<button class="btn btn-success list">목록</button>
 				</div>
 				<div>
@@ -41,14 +42,33 @@
 <script>
 $(function(){
 	let getForm=$('#getForm');
-	$('#getForm .list').on('click', function(e){
+	$('#getForm .list').on('click', function(e){ //목록 버튼 클릭 했을때
 		let inputTitleTag = '<input type="hidden" name="title" value="${board.title}"> '
 		e.preventDefault();
 		//console.log('기본동작금지')
 		getForm.attr("action","list");
+		getForm.attr("method","get");
 		getForm.append(inputTitleTag);
 		getForm.submit();
-	})
+	});
+	
+	$('#getForm .modify').on('click', function(e){ //수정 버튼 클릭 했을때
+		e.preventDefault();
+		getForm.append(bno);
+		getForm.attr("action","modify");
+		getForm.attr("method","get");
+		getForm.submit();
+	});
+	
+	$('#getForm .remove').on('click', function(e){ //삭제 버튼 클릭 했을때
+		e.preventDefault();
+		getForm.append(bno);
+		getForm.attr("action","remove");
+		getForm.attr("method","post");
+		getForm.submit();
+	});
+	
+	
 })
 </script>
 <%@ include file="../layout/footer.jsp"%>

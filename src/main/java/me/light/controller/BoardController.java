@@ -48,7 +48,8 @@ public class BoardController {
 	public String register(BoardVO vo,RedirectAttributes rttr) {
 		service.register(vo);
 		System.out.println(vo);
-		rttr.addFlashAttribute("regResult", vo.getBno());
+		rttr.addFlashAttribute("result", "register");
+		rttr.addFlashAttribute("bno", vo.getBno());
 		return "redirect:list";
 	}
 	
@@ -58,6 +59,22 @@ public class BoardController {
 		if(read==null) throw new NotFoundBoardException();
 		model.addAttribute("board", read);
 		return "board/modify";
+	}
+	
+	@PostMapping("/modify")
+	public String modify(BoardVO vo, RedirectAttributes rttr) {
+		service.modify(vo);
+		rttr.addFlashAttribute("result", "modify");
+		rttr.addFlashAttribute("bno", vo.getBno());
+		return "redirect:list";
+	}
+	
+	@PostMapping("/remove")
+	public String remove(Long bno, RedirectAttributes rttr) {
+		service.remove(bno);
+		rttr.addFlashAttribute("result", "remove");
+		rttr.addFlashAttribute("bno", bno);
+		return "redirect:list";
 	}
 	
 	//예외처리
