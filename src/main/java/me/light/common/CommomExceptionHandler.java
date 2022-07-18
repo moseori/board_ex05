@@ -1,13 +1,11 @@
 package me.light.common;
 
-import javax.servlet.http.HttpServletRequest;
-
+import org.springframework.beans.TypeMismatchException;
 import org.springframework.http.HttpStatus;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.client.HttpClientErrorException.BadRequest;
 import org.springframework.web.servlet.NoHandlerFoundException;
 
 @ControllerAdvice
@@ -21,9 +19,9 @@ public class CommomExceptionHandler {
 		return "errorPage/_404";
 	}
 	
-//	@ExceptionHandler(Exception.class)
-//	@ResponseStatus(code = HttpStatus.BAD_REQUEST)
-	public String badRequestHandle() {
+	@ExceptionHandler(TypeMismatchException.class)
+	@ResponseStatus(code = HttpStatus.BAD_REQUEST)
+	public String badRequestHandle(TypeMismatchException exception) {
 		return "errorPage/_400";
 	}
 }
