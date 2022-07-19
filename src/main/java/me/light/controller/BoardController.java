@@ -13,6 +13,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import me.light.exception.NotFoundBoardException;
 import me.light.model.BoardVO;
+import me.light.model.Criteria;
 import me.light.service.BoardService;
 
 @Controller
@@ -23,8 +24,8 @@ public class BoardController {
 	private BoardService service;
 	
 	@GetMapping("/list")
-	public String getList(Model model) {
-		List<BoardVO> readAll =service.readAll();
+	public String getList(Model model, Criteria criteria) {
+		List<BoardVO> readAll =service.readAll(criteria);
 		model.addAttribute("list", readAll);
 		System.out.println(readAll);
 		return "board/list";

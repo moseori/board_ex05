@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import me.light.AppTest;
 import me.light.model.BoardVO;
+import me.light.model.Criteria;
 
 public class BoardMapperTest extends AppTest {
 
@@ -15,7 +16,8 @@ public class BoardMapperTest extends AppTest {
 	@Test
 	@Ignore
 	public void getListTest() {
-		mapper.getList();
+		Criteria criteria =new Criteria();
+		mapper.getList(criteria);
 	}
 
 	@Test

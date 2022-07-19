@@ -3,7 +3,7 @@
 <mapper namespace="me.light.mapper.BoardMapper">
 
 	<select id="getList" resultType="me.light.model.BoardVO">
-		select * from board_tbl
+		select * from board_tbl limit #{pageStart}, #{perPageNum}
 	</select>
 
 
