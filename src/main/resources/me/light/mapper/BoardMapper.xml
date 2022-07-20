@@ -6,16 +6,16 @@
 		select * from board_tbl
 		<where>
 			<trim prefixOverrides="or">
-				<foreach collection="collectionType">
+				<foreach collection="collectionType" item="tp">
 					<trim prefix="or">
 						<choose>
-							<when test="type=='T'.toString()">
+							<when test="tp=='T'.toString()">
 								title like concat('%',#{keyword},'%')
 							</when>
-							<when test="type=='C'.toString()">
+							<when test="tp=='C'.toString()">
 								content like concat('%',#{keyword},'%')
 							</when>
-							<when test="type=='W'.toString()">
+							<when test="tp=='W'.toString()">
 								writer like concat('%',#{keyword},'%')
 							</when>
 						</choose>

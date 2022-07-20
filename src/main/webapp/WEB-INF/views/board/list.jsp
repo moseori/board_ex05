@@ -16,11 +16,11 @@
 						<select class="form-control" name="type">
 							<option>검색종류선택</option>
 							<option value="T" ${param.type=='T'?'selected':''}>제목</option>
-							<option value="C" ${param.type=='T'?'selected':''}>내용</option>
-							<option value="W" ${param.type=='T'?'selected':''}>작성자</option>
-							<option value="TC" ${param.type=='T'?'selected':''}>제목+내용</option>
-							<option value="TW" ${param.type=='T'?'selected':''}>제목+작성자</option>
-							<option value="CW" ${param.type=='T'?'selected':''}>내용+작성자</option>
+							<option value="C" ${param.type=='C'?'selected':''}>내용</option>
+							<option value="W" ${param.type=='W'?'selected':''}>작성자</option>
+							<option value="TC" ${param.type=='TC'?'selected':''}>제목+내용</option>
+							<option value="TW" ${param.type=='TW'?'selected':''}>제목+작성자</option>
+							<option value="CW" ${param.type=='CW'?'selected':''}>내용+작성자</option>
 						</select>
 					</div>
 					<div class="col-md-7 form-group">
