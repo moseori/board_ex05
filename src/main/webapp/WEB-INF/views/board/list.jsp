@@ -5,11 +5,38 @@
 	<div class="jumbotron">
 		<h2>게시글목록</h2>
 	</div>
-	
-	<div>
-		<a href="register">글쓰기</a>
+
+
+	<div class="d-flex justify-content-between">
+		<div class="col-md-10">
+			<form action="${contextPath}/board/list" id="serachForm">
+				<input type="hidden" name="page" value="${pageMarker.criteria.page}">
+				<div class="row">
+					<div class="col-md-3 form-group">
+						<select class="form-control" name="type">
+							<option>검색종류선택</option>
+							<option value="T" ${param.type=='T'?'selected':''}>제목</option>
+							<option value="C" ${param.type=='T'?'selected':''}>내용</option>
+							<option value="W" ${param.type=='T'?'selected':''}>작성자</option>
+							<option value="TC" ${param.type=='T'?'selected':''}>제목+내용</option>
+							<option value="TW" ${param.type=='T'?'selected':''}>제목+작성자</option>
+							<option value="CW" ${param.type=='T'?'selected':''}>내용+작성자</option>
+						</select>
+					</div>
+					<div class="col-md-7 form-group">
+						<input type="search" class="form-control" name="keyword" value="${param.keyword}">
+					</div>
+					<div class="col-md-2 form-group">
+						<button class="btn btn-primary form-control">검색</button>
+					</div>
+				</div>
+			</form>
+		</div>
+		<div class="col-md-2 text-right">
+			<a href="register">글쓰기</a>
+		</div>
 	</div>
-	
+
 	<table class="table">
 		<tr>
 			<th>번호</th>
@@ -36,22 +63,25 @@
 		</c:forEach>
 
 	</table>
+	<div class="d-flex justify-content-center">
+		<ul class="pagination my-3 py-3">
+			<c:if test="${pageMarker.prev}">
+				<li class="page-item"><a class="page-link" href="${pageMarker.startPage-1}">Previous</a></li>
+			</c:if>
 
-	<ul class="pagination my-3 py-3">
-		<c:if test="${pageMarker.prev}">
-			<li class="page-item"><a class="page-link" href="${pageMarker.startPage-1}">Previous</a></li>
-		</c:if>
+			<c:forEach begin="${pageMarker.startPage}"
+				end="${pageMarker.endPage}" var="page">
+				<li class="page-item ${pageMarker.criteria.page == page?'active':''}">
+					<a class="page-link" href="${page}">${page}</a>
+				</li>
+			</c:forEach>
 
-		<c:forEach begin="${pageMarker.startPage}" end="${pageMarker.endPage}" var="page">
-			<li class="page-item ${pageMarker.criteria.page == page?'active':''}">
-				<a class="page-link" href="${page}">${page}</a>
-			</li>
-		</c:forEach>
-
-		<c:if test="${pageMarker.next}">
-			<li class="page-item"><a class="page-link" href="${pageMarker.endPage+1}">Next</a></li>
-		</c:if>
-	</ul>
+			<c:if test="${pageMarker.next}">
+				<li class="page-item"><a class="page-link"
+					href="${pageMarker.endPage+1}">Next</a></li>
+			</c:if>
+		</ul>
+	</div>
 </div>
 
 <!-- Modal -->
