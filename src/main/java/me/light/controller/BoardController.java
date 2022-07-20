@@ -20,51 +20,51 @@ import me.light.service.BoardService;
 @Controller
 @RequestMapping("/board")
 public class BoardController {
-	
+
 	@Autowired
 	private BoardService service;
-	
+
 	@GetMapping("/list")
 	public String getList(Model model, Criteria criteria) {
-		PageMarker pageMarker=new PageMarker(criteria, 412);
-		List<BoardVO> readAll =service.readAll(criteria);
+		PageMarker pageMarker = new PageMarker(criteria, service.getTotal());
+		List<BoardVO> readAll = service.readAll(criteria);
 		model.addAttribute("pageMarker", pageMarker);
 		model.addAttribute("list", readAll);
 		System.out.println(readAll);
 		return "board/list";
 	}
-	
+
 	@GetMapping("/get")
 	public String get(Long bno, Model model) {
-		BoardVO read =service.read(bno);
-		if(read==null) throw new NotFoundBoardException();
+		BoardVO read = service.read(bno);
+		if (read == null) throw new NotFoundBoardException();
 		System.out.println(bno);
 		model.addAttribute("board", service.read(bno));
 		return "board/get";
 	}
-	
+
 	@GetMapping("/register")
 	public String registerForm() {
 		return "board/register";
 	}
 
 	@PostMapping("/register")
-	public String register(BoardVO vo,RedirectAttributes rttr) {
+	public String register(BoardVO vo, RedirectAttributes rttr) {
 		service.register(vo);
 		System.out.println(vo);
 		rttr.addFlashAttribute("result", "register");
 		rttr.addFlashAttribute("bno", vo.getBno());
 		return "redirect:list";
 	}
-	
+
 	@GetMapping("/modify")
 	public String modifyForm(Long bno, Model model) {
 		BoardVO read = service.read(bno);
-		if(read==null) throw new NotFoundBoardException();
+		if (read == null) throw new NotFoundBoardException();
 		model.addAttribute("board", read);
 		return "board/modify";
 	}
-	
+
 	@PostMapping("/modify")
 	public String modify(BoardVO vo, RedirectAttributes rttr) {
 		service.modify(vo);
@@ -72,7 +72,7 @@ public class BoardController {
 		rttr.addFlashAttribute("bno", vo.getBno());
 		return "redirect:list";
 	}
-	
+
 	@PostMapping("/remove")
 	public String remove(Long bno, RedirectAttributes rttr) {
 		service.remove(bno);
@@ -80,8 +80,8 @@ public class BoardController {
 		rttr.addFlashAttribute("bno", bno);
 		return "redirect:list";
 	}
-	
-	//예외처리
+
+	// 예외처리
 	@ExceptionHandler(NotFoundBoardException.class)
 	public String notFoundBoard() {
 		System.out.println("예외발생");

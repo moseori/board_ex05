@@ -31,4 +31,7 @@
 		delete from board_tbl where bno=#{bno}
 	</delete>
 
+	<select id="totalCount" resultType="java.lang.Integer">
+		select count(bno) from board_tbl
+	</select>
 </mapper>

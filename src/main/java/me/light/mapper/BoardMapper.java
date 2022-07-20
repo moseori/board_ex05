@@ -15,4 +15,6 @@ public interface BoardMapper {
 	void update(BoardVO vo);
 
 	void delete(Long bno);
+
+	Integer totalCount();
 }
