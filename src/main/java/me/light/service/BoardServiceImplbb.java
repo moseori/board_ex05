@@ -46,8 +46,8 @@ public class BoardServiceImplbb implements BoardService {
 	}
 
 	@Override
-	public Integer getTotal() {
-		return mapper.totalCount();
+	public Integer getTotal(Criteria criteria) {
+		return mapper.totalCount(criteria);
 	}
 
 }

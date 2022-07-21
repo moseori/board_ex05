@@ -16,5 +16,5 @@ public interface BoardService {
 
 	void remove(Long bno);
 
-	Integer getTotal();
+	Integer getTotal(Criteria criteria);
 }

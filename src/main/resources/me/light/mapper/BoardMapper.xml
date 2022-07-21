@@ -2,20 +2,19 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="me.light.mapper.BoardMapper">
 
-	<select id="getList" resultType="me.light.model.BoardVO">
-		select * from board_tbl
+	<sql id="searchCondition">
 		<where>
 			<trim prefixOverrides="or">
-				<foreach collection="collectionType" item="tp">
+				<foreach collection="collectionType" item="type">
 					<trim prefix="or">
 						<choose>
-							<when test="tp=='T'.toString()">
+							<when test="type=='T'.toString()">
 								title like concat('%',#{keyword},'%')
 							</when>
-							<when test="tp=='C'.toString()">
+							<when test="type=='C'.toString()">
 								content like concat('%',#{keyword},'%')
 							</when>
-							<when test="tp=='W'.toString()">
+							<when test="type=='W'.toString()">
 								writer like concat('%',#{keyword},'%')
 							</when>
 						</choose>
@@ -23,6 +22,11 @@
 				</foreach>
 			</trim>
 		</where>
+	</sql>
+
+	<select id="getList" resultType="me.light.model.BoardVO">
+		select * from board_tbl
+		<include refid="searchCondition"></include>
 		limit #{pageStart}, #{perPageNum}
 	</select>
 
@@ -53,5 +57,6 @@
 
 	<select id="totalCount" resultType="java.lang.Integer">
 		select count(bno) from board_tbl
+		<include refid="searchCondition"></include>
 	</select>
 </mapper>

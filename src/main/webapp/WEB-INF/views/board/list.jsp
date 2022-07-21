@@ -10,11 +10,13 @@
 	<div class="d-flex justify-content-between">
 		<div class="col-md-10">
 			<form action="${contextPath}/board/list" id="serachForm">
+				<!-- 
 				<input type="hidden" name="page" value="${pageMarker.criteria.page}">
+				 -->
 				<div class="row">
 					<div class="col-md-3 form-group">
-						<select class="form-control" name="type">
-							<option>검색종류선택</option>
+						<select class="form-control" name="type" id="type">
+							<option value="">검색종류선택</option>
 							<option value="T" ${param.type=='T'?'selected':''}>제목</option>
 							<option value="C" ${param.type=='C'?'selected':''}>내용</option>
 							<option value="W" ${param.type=='W'?'selected':''}>작성자</option>
@@ -24,7 +26,7 @@
 						</select>
 					</div>
 					<div class="col-md-7 form-group">
-						<input type="search" class="form-control" name="keyword" value="${param.keyword}">
+						<input type="search" class="form-control" name="keyword" id="keyword" value="${param.keyword}">
 					</div>
 					<div class="col-md-2 form-group">
 						<button class="btn btn-primary form-control">검색</button>
@@ -120,21 +122,29 @@ $(function(){
 		$('#feedback').modal('show');
 	}
 	
+	$('#serachForm button').on('click', function(e){
+		if($('#keyword').val().trim()==''){
+			alert("검색어를 입력하세요.");
+		}
+	})
+	
 	//페이지 이동
-	$('.pagination a').on('click',function(e){
-		e.preventDefault();
-		let pageForm=$('<form></form>')
-		let pageNum=$(this).attr("href")
-		pageForm.append($('<input/>',{type:'hidden',name:'page',value:pageNum}));
+	$('.pagination a').on('click', function(e) {
+			e.preventDefault();
+			let pageForm = $('<form></form>')
+			let pageNum = $(this).attr("href")
+			pageForm.append($('<input/>', { type : 'hidden', name : 'page', value : pageNum
+			}));
 
-		//let pageNumTag=$('<input type="hidden" name="page">');
-		// pageNumTag.val($(this).attr("href"));
-		
-		pageForm.attr('action','list');
-		pageForm.attr('method','get');
-		pageForm.appendTo('body');
-		pageForm.submit();
+			if ($('#keyword').val().trim() != '') {
+				pageForm.append($('#type')) //검색타입
+				pageForm.append($('#keyword')) //키워드
+			}
+			pageForm.attr('action', 'list');
+			pageForm.attr('method', 'get');
+			pageForm.appendTo('body');
+			pageForm.submit();
+		});
 	});
-});
 </script>
 <%@ include file="../layout/footer.jsp"%>

@@ -16,5 +16,5 @@ public interface BoardMapper {
 
 	void delete(Long bno);
 
-	Integer totalCount();
+	Integer totalCount(Criteria criteria);
 }
