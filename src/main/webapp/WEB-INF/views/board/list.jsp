@@ -34,7 +34,7 @@
 				</div>
 			</form>
 		</div>
-		<div class="col-md-2 text-right">
+		<div class="col-md-2 text-md-right">
 			<a href="register">글쓰기</a>
 		</div>
 	</div>
@@ -93,7 +93,7 @@
     <!-- Modal content-->
     <div class="modal-content">
       <div class="modal-header">
-        <h4 class="modal-title"></h4>
+        <h3 class="modal-title"></h3>
         <button type="button" class="close" data-dismiss="modal">&times;</button>
       </div>
       <div class="modal-body message">
@@ -128,9 +128,6 @@
 
 		$('#serachForm button').on('click', function(e) {
 			e.preventDefault();
-			$('.modal-title span').remove();
-			$('.message span').remove();
-
 			if ($('#type').val() == '') {
 				title = "검색종류 선택안함";
 				message = "검색종류를 선택하세요.";
@@ -145,8 +142,8 @@
 		})
 
 		function modalShow() {
-			$('.modal-title').append('<span>' + title + '</span>');
-			$('.message').append('<span>' + message + '</span>');
+			$('.modal-title').html(title);
+			$('.message').html(message);
 			$('#feedback').modal('show');
 		}
 
