@@ -93,7 +93,7 @@
     <!-- Modal content-->
     <div class="modal-content">
       <div class="modal-header">
-        <h4 class="modal-title">글 등록</h4>
+        <h4 class="modal-title"></h4>
         <button type="button" class="close" data-dismiss="modal">&times;</button>
       </div>
       <div class="modal-body message">
@@ -107,33 +107,58 @@
 </div>
 
 <script>
-$(function(){
-	let result = "${result}"
-	let message = "";
-	if(result.trim()!=''){
-		if(result=='register'){
-			message = "${bno}번 글을 등록 하였습니다."
-		} else if (result=='modify') {
-			message = "${bno}번 글을 수정 하였습니다."
-		} else if (result=='remove'){
-			message = "${bno}번 글을 삭제 하였습니다."
+	$(function() {
+		let result = "${result}"
+		let title = "";
+		let message = "";
+
+		if (result.trim() != '') {
+			if (result == 'register') {
+				title = "글 등록";
+				message = "${bno}번 글을 등록 하였습니다."
+			} else if (result == 'modify') {
+				title = "글 수정";
+				message = "${bno}번 글을 수정 하였습니다."
+			} else if (result == 'remove') {
+				title = "글 삭제";
+				message = "${bno}번 글을 삭제 하였습니다."
+			}
+			modalShow()
 		}
-		$('.message').append(message);
-		$('#feedback').modal('show');
-	}
-	
-	$('#serachForm button').on('click', function(e){
-		if($('#keyword').val().trim()==''){
-			alert("검색어를 입력하세요.");
+
+		$('#serachForm button').on('click', function(e) {
+			e.preventDefault();
+			$('.modal-title span').remove();
+			$('.message span').remove();
+
+			if ($('#type').val() == '') {
+				title = "검색종류 선택안함";
+				message = "검색종류를 선택하세요.";
+				modalShow()
+			} else if ($('#keyword').val() == '') {
+				title = "검색어 입력 안함";
+				message = "검색어를 입력하세요.";
+				modalShow()
+			} else {
+				$('#serachForm').submit();
+			}
+		})
+
+		function modalShow() {
+			$('.modal-title').append('<span>' + title + '</span>');
+			$('.message').append('<span>' + message + '</span>');
+			$('#feedback').modal('show');
 		}
-	})
-	
-	//페이지 이동
-	$('.pagination a').on('click', function(e) {
+
+		//페이지 이동
+		$('.pagination a').on('click', function(e) {
 			e.preventDefault();
 			let pageForm = $('<form></form>')
 			let pageNum = $(this).attr("href")
-			pageForm.append($('<input/>', { type : 'hidden', name : 'page', value : pageNum
+			pageForm.append($('<input/>', {
+				type : 'hidden',
+				name : 'page',
+				value : pageNum
 			}));
 
 			if ($('#keyword').val().trim() != '') {
