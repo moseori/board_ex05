@@ -3,12 +3,9 @@
 <%@ include file="../layout/header.jsp"%>
 
 <input type="hidden" name="bno" value="${board.bno}" id="bno"> 
-<%-- 
-<input type="hidden" name="title" value="${board.title}"> 
-<input type="hidden" name="content" value="${board.content}"> 
-<input type="hidden" name="regDate" value="${board.regDate}"> 
-<input type="hidden" name="updateDate" value="${board.updateDate}">
---%> 
+<input type="hidden" name="page" value="${param.page}" id="page"> 
+<input type="hidden" name="type" value="${param.type}" id="type"> 
+<input type="hidden" name="keyword" value="${param.keyword}" id="keyword"> 
  
 <div class="container">
 	<div class="jumbotron">
@@ -43,12 +40,18 @@
 $(function(){
 	let getForm=$('#getForm');
 	$('#getForm .list').on('click', function(e){ //목록 버튼 클릭 했을때
-		let inputTitleTag = '<input type="hidden" name="title" value="${board.title}"> '
 		e.preventDefault();
+		if ($('#page').val().trim() != '') {
+			getForm.append($('#page'));
+		}
+		
+		if ($('#keyword').val().trim() != '') {
+			getForm.append($('#type'));
+			getForm.append($('#keyword'));
+		}
 		//console.log('기본동작금지')
 		getForm.attr("action","list");
 		getForm.attr("method","get");
-		getForm.append(inputTitleTag);
 		getForm.submit();
 	});
 	

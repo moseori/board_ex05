@@ -34,7 +34,7 @@
 				</div>
 			</form>
 		</div>
-		<div class="col-md-2 text-md-right">
+		<div class="col-md-2 text-right">
 			<a href="register">글쓰기</a>
 		</div>
 	</div>
@@ -50,7 +50,7 @@
 		<c:forEach var="b" items="${list}">
 			<tr>
 				<td>${b.bno}</td>
-				<td><a href="get?bno=${b.bno}">${b.title}</a></td>
+				<td><a href="${b.bno}" class="article">${b.title}</a></td>
 				<td>${b.writer}</td>
 				<td>
 					<fmt:parseDate var="regDate" value="${b.regDate}" pattern="yyyy-MM-dd'T'HH:mm:ss" type="both"/>
@@ -146,6 +146,24 @@
 			$('.message').html(message);
 			$('#feedback').modal('show');
 		}
+		
+		//게시글로 이동
+		$('.article').on('click', function(e){
+			e.preventDefault();
+			let articeForm=$('<form></form>')
+			let page="${param.page}"
+			let bnoNum=$(this).attr("href");
+			articeForm.append($('<input/>', { type : 'hidden', name : 'bno', value : bnoNum }));
+			articeForm.append($('<input/>', { type : 'hidden', name : 'page', value : page}));
+			if ($('#keyword').val().trim() != '') {
+				articeForm.append($('#type')) //검색타입
+				articeForm.append($('#keyword')) //키워드
+			}
+			articeForm.attr('action', 'get');
+			articeForm.attr('method', 'get');
+			articeForm.appendTo('body');
+			articeForm.submit();
+		})
 
 		//페이지 이동
 		$('.pagination a').on('click', function(e) {
